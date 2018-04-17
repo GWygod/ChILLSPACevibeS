@@ -2,6 +2,7 @@
 
 // REQUIRED: define images we want to use
 const IMAGES = {
+  flag: 'https://i.imgur.com/M8u25cr.png',
   wheat: 'https://i.imgur.com/ythxt2c.jpg',
   sparse_wheat: 'https://i.imgur.com/lCIe5lH.jpg',
   aqueduct: 'http://i.imgur.com/WtI3uue.jpg',
@@ -35,7 +36,8 @@ const STATE = {
   cashPerCrop: 100,
   investment: 0,
   aqueducts: 0,
-  wheats: 0
+  wheats: 0,
+  systems: 0
 }
 
 
@@ -177,6 +179,18 @@ class Aqueduct extends Item {
   }
 }
 
+class mySystem extends Item {
+
+
+  get info() {
+    return 'This system is part of your Hegemony, GOD-QUEEN!'
+  }
+
+  get image() {
+    return 'flag'
+  }
+}
+
 // Define a Wheat "item"
 class Wheat extends Item {
 
@@ -275,9 +289,9 @@ var investmentBonus = new Bonus(
 // Initial setup of the game
 function init() {
   // Create a starting wheat plot
-  var wheat = new Wheat();
-  place(wheat, 25, 31);
-  STATE.wheats += 1;
+  var systems = new mySystem();
+  place(systems, 25, 30);
+  STATE.systems += 1;
 
   // Setup the Menu for buying stuff
   var menu = new Menu('Farm Mall', [
