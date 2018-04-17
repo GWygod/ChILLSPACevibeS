@@ -11,10 +11,10 @@ const IMAGES = {
 };
 
 // REQUIRED: configure the grid
-const GRID_ROWS = 10;
-const GRID_COLS = 10;
-const GRID_CELL_SIZE = 80;
-const GRID_EMPTY = [247, 245, 165];
+const GRID_ROWS = 50;
+const GRID_COLS = 50;
+const GRID_CELL_SIZE = 75;
+const GRID_EMPTY = [234, 234, 234];
 const GRID_TYPE = 'hex';
 
 // REQUIRED: define how our resources will be represented
@@ -276,7 +276,7 @@ var investmentBonus = new Bonus(
 function init() {
   // Create a starting wheat plot
   var wheat = new Wheat();
-  place(wheat, 0, 0);
+  place(wheat, 25, 31);
   STATE.wheats += 1;
 
   // Setup the Menu for buying stuff
@@ -312,5 +312,5 @@ function init() {
 // The game's main loop.
 // We're just using it to set a background color
 function main() {
-  background(58, 170, 80);
+  background((0, 0, 0));
 }
