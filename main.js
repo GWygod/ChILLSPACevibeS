@@ -11,7 +11,7 @@ class emptySpace extends Cell {
 
   init() {
     this.status = 0;
-    this.conquerable == false;
+    this.conquerable = false;
   }
 
   get info() {
@@ -23,24 +23,24 @@ class emptySpace extends Cell {
   }
 
   update(neighbors) {
-    var conquerable = this.conquerable
     var self = this;
 
     neighbors.forEach(function(neighbor) {
       if (neighbor.item instanceof myemptySpace) {
-        conquerable = true
+        self.conquerable = true
       } else if (neighbor.item instanceof mySystem) {
-        conquerable = true
+        self.conquerable = true
       }
     })
   }
 
   onClick() {
-    if (this.conquerable = true) {
+    console.log(this.conquerable)
+    if (this.conquerable == true) {
       this.status += 1;
       if (this.status >= 1) {
         STATE.resources.energy = STATE.resources.energy - 5
-        var mySpace = new myemptySpace
+        var mySpace = new myemptySpace()
         place(mySpace, this.x, this.y)
         showMessage('You have conquered free space. Your troops are free to move.')
       }
