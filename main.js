@@ -18,12 +18,8 @@ class emptySpace extends Cell {
     return 'This is empty space. You must traverse it to find other planets.'
   }
 
-  // get image() {
-  //   return 'space'
-  // }
-
-  get color() {
-    return [40,40,40];
+  get image() {
+    return 'space'
   }
 
   update(neighbors) {
