@@ -11,6 +11,7 @@ const GRID_ROWS = 50;
 const GRID_COLS = 50;
 const GRID_CELL_SIZE = 75;
 const GRID_EMPTY = [234, 234, 234];
+const GRID_TYPE = 'hex';
 
 // REQUIRED: define how our resources will be represented
 const RESOURCES = {
