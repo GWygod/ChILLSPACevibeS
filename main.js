@@ -57,6 +57,7 @@ const GRID_CELL_SIZE = 75;
 const GRID_EMPTY = [234, 234, 234];
 const GRID_TYPE = 'hex';
 const GRID_DEFAULT_CELL = emptySpace;
+const TEXT_DEFAULT_COLOR = [250,250,250];
 
 // REQUIRED: define how our resources will be represented
 const RESOURCES = {
