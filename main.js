@@ -40,6 +40,8 @@ class emptySpace extends Cell {
       this.status += 1;
       if (this.status >= 1) {
         STATE.resources.energy = STATE.resources.energy - 5
+        STATE.trigger += 1
+        console.log(STATE.trigger)
         var mySpace = new myemptySpace()
         place(mySpace, this.x, this.y)
         showMessage('You have conquered free space. Your troops are free to move.')
@@ -79,7 +81,10 @@ const STATE = {
     morale: 90,
     energy: 100,
     money: 0,
-  }
+  },
+  event: 0,
+  trigger: 1,
+  active: false
 }
 
 class mySystem extends Item {
@@ -126,4 +131,116 @@ function init() {
 // We're just using it to set a background color
 function main() {
   background((0, 0, 0));
+
+  if (STATE.trigger % 11 == 0) {
+  	STATE.active = true
+  }
+
+  if (STATE.active == true) {
+    console.log('triggered')
+    var event = Math.floor(Math.random() * 20) + 1
+    STATE.event = event
+    console.log(STATE.event)
+    if (STATE.event >= 20) {
+      let ev1 = new Event('ARMY UPDATE', 'National pride is up! Your glory has rallied your people, GOD-QUEEN!');
+      STATE.trigger = 1
+      STATE.active = false
+      STATE.resources.army = STATE.resources.army + 50;
+    } else if (STATE.event >= 19) {
+      let ev2 = new Event('ARMY UPDATE', 'Positive PsyOps Succesful!');
+      STATE.trigger = 1
+      STATE.active = false
+      STATE.resources.army = STATE.resources.army + 100;
+    } else if (STATE.event >= 18) {
+      let ev3 = new Event('ARMY UPDATE', 'Ship lost in space.');
+      STATE.trigger = 1
+      STATE.active = false
+      STATE.resources.army = STATE.resources.army - 50;
+    } else if (STATE.event >= 17) {
+      let ev4 = new Event('ARMY UPDATE', 'Unsuccessful rebellion.');
+      STATE.trigger = 1
+      STATE.active = false
+      STATE.resources.army = STATE.resources.army - 100;
+    } else if (STATE.event >= 16) {
+      let ev5 = new Event('MONEY UPDATE', 'Stock market is booming!');
+      STATE.trigger = 1
+      STATE.active = false
+      STATE.resources.money = STATE.resources.money + 50;
+    } else if (STATE.event >= 15) {
+      let ev6 = new Event('MONEY UPDATE', 'Inflation');
+      STATE.trigger = 1
+      STATE.active = false
+      STATE.resources.money = STATE.resources.money + 100;
+    } else if (STATE.event >= 14) {
+      let ev7 = new Event('MONEY UPDATE', 'Government lost track of funds');
+      STATE.trigger = 1
+      STATE.active = false
+      STATE.resources.money = STATE.resources.money - 50;
+    } else if (STATE.event >= 13) {
+      let ev8 = new Event('MONEY UPDATE', 'Embezzlement');
+      STATE.trigger = 1
+      STATE.active = false
+      STATE.resources.money = STATE.resources.money - 100;
+    } else if (STATE.event >= 12) {
+      let ev9 = new Event('ENERGY UPDATE', 'Technological breakthrough');
+      STATE.trigger = 1
+      STATE.active = false
+      STATE.resources.energy = STATE.resources.energy + 20;
+    } else if (STATE.event >= 11) {
+      let ev10 = new Event('ENERGY UPDATE', 'New energy source discovered');
+      STATE.trigger = 1
+      STATE.active = false
+      STATE.resources.energy = STATE.resources.energy + 40;
+    } else if (STATE.event >= 10) {
+      let ev11 = new Event('ENERGY UPDATE', 'Attack on a fuel ship');
+      STATE.trigger = 1
+      STATE.active = false
+      STATE.resources.energy = STATE.resources.energy - 20;
+    } else if (STATE.event >= 9) {
+      let ev12 = new Event('ENERGY UPDATE', 'Space Eco-Terrorists attack energy supply');
+      STATE.trigger = 1
+      STATE.active = false
+      STATE.resources.energy = STATE.resources.energy - 40;
+    } else if (STATE.event >= 8) {
+      let ev13 = new Event('SUPPLY UPDATE', 'New supply harvesting tools');
+      STATE.trigger = 1
+      STATE.active = false
+      STATE.resources.supplies = STATE.resources.supplies + 10;
+    } else if (STATE.event >= 7) {
+      let ev14 = new Event('SUPPLY UPDATE', 'New agricultural system implemented');
+      STATE.trigger = 1
+      STATE.active = false
+      STATE.resources.supplies = STATE.resources.supplies + 20;
+    } else if (STATE.event >= 6) {
+      let ev15 = new Event('SUPPLY UPDATE', 'A drought has struck');
+      STATE.trigger = 1
+      STATE.active = false
+      STATE.resources.supplies = STATE.resources.supplies - 10;
+    } else if (STATE.event >= 5) {
+      let ev16 = new Event('SUPPLY UPDATE', 'Inedible invasive species kills crops');
+      STATE.trigger = 1
+      STATE.active = false
+      STATE.resources.supplies = STATE.resources.supplies - 20;
+    } else if (STATE.event >= 4) {
+      let ev17 = new Event('MORALE UPDATE', 'An Intergalactic celebrity endorses you');
+      STATE.trigger = 1
+      STATE.active = false
+      STATE.resources.morale = STATE.resources.morale + 10;
+    } else if (STATE.event >= 3) {
+      let ev18 = new Event('MORALE UPDATE', 'You have survived an assassination attempt, GOD-QUEEN!');
+      STATE.trigger = 1
+      STATE.active = false
+      STATE.resources.morale = STATE.resources.morale + 20;
+    } else if (STATE.event >= 2) {
+      let ev19 = new Event('MORALE UPDATE', 'Your dog has died, GOD-QUEEN. May they forever be remembered.');
+      STATE.trigger = 1
+      STATE.active = false
+      STATE.resources.morale = STATE.resources.morale - 10;
+    } else if (STATE.event >= 1) {
+      let ev20 = new Event('MORALE UPDATE', 'Famous TV show has ended');
+      STATE.trigger = 1
+      STATE.active = false
+      STATE.resources.morale = STATE.resources.morale - 20;
+    }
+  }
 }
