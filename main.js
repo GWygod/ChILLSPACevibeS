@@ -211,6 +211,77 @@ class tier_0 extends Item {
 	}
 }
 
+class mytier_1 extends Item {
+	get info() {
+		return 'This is system is under your protection, GOD-QUEEN.'
+	}
+
+	get image() {
+		return 'conquered_tier_1'
+	}
+}
+
+
+class tier_1 extends Item {
+
+	init() {
+    this.army = 50;
+    this.supplies = 30;
+    this.morale = 50;
+    this.conquerable = false;
+  }
+
+	get info() {
+		return 'This is an unprotected system.'
+	}
+
+	get image() {
+		return 'tier_1'
+	}
+
+  update(neighbors) {
+    var self = this;
+
+    neighbors.forEach(function(neighbor) {
+      if (neighbor.item instanceof myemptySpace) {
+        self.conquerable = true
+      } else if (neighbor.item instanceof mySystem) {
+        self.conquerable = true
+      } else if (neighbor.item instanceof mytier_1) {
+      	self.conquerable = true
+      }
+    })
+  }
+
+	onClick() {
+		if (STATE.resources.energy >= 5 * (STATE.resources.army/20)) {
+			if (this.conquerable == true) {
+				var army_mod = battle(this.army,this.supplies,this.morale)
+				if (STATE.victory == true) {
+					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
+					STATE.resources.army = STATE.resources.army + (army_mod * 20)
+					STATE.trigger += 1
+					STATE.resources.systems += 1
+					console.log(STATE.trigger)
+					var my1 = new mytier_1()
+					place(my1, this.x, this.y)
+					showMessage('You have conquered this system. Glory be to the GOD-QUEEN!')
+				} else if (STATE.victory == false) {
+					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
+					STATE.resources.army = STATE.resources.army - (army_mod * 20)
+					STATE.trigger += 1
+					console.log(STATE.trigger)
+					showMessage('Your army has failed to conqquer this system. They will be taught a lesson, GOD-QUEEN.')
+				}
+			} else {
+				showMessage('You must reach this system before conquering it.')
+			}
+		} else {
+    	showMessage('You do not have the energy to move your ships to conquer this system, GOD-QUEEN.')
+    }
+	}
+}
+
 // Initial setup of the game
 function init() {
   var system = new mySystem();
