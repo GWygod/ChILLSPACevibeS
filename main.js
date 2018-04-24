@@ -4,10 +4,11 @@
 const IMAGES = {
   symbol: 'https://i.imgur.com/8H0bKkv.png',
   space: 'https://i.imgur.com/hucO1lV.jpg',
-  conquered_space: 'https://i.imgur.com/9JvxNJg.jpg',
+  conquered_space: 'https://i.imgur.com/7tA1VtU.jpg',
   tier_0: 'https://i.imgur.com/plKeH7v.png',
-  conquered_tier_0: 'https://i.imgur.com/4E87Q2W.png'
+  conquered_tier_0: 'https://i.imgur.com/MzkzKCO.png',
   tier_1: 'https://i.imgur.com/yXwcjIY.png',
+<<<<<<< HEAD
   conquered_tier_1: ''
   tier_2:
   conquered_tier_2:
@@ -15,6 +16,9 @@ const IMAGES = {
   conquered_tier_3:
   tier_4:
   conquered_tier_4:
+=======
+  conquered_tier_1: 'https://i.imgur.com/90miEKP.png'
+>>>>>>> 5c3303a8bd0702d4ebd12fc9114063e5aa09f76c
 };
 
 class emptySpace extends Cell {
@@ -208,7 +212,7 @@ class tier_0 extends Item {
 					STATE.resources.army = STATE.resources.army - (army_mod * 20)
 					STATE.trigger += 1
 					console.log(STATE.trigger)
-					showMessage('Your army has failed to conqquer this system. They will be taught a lesson, GOD-QUEEN.')
+					showMessage('Your army has failed to conquer this system. They will be taught a lesson, GOD-QUEEN.')
 				}
 			} else {
 				showMessage('You must reach this system before conquering it.')
@@ -281,7 +285,7 @@ class tier_1 extends Item {
 					STATE.resources.army = STATE.resources.army - (army_mod * 20)
 					STATE.trigger += 1
 					console.log(STATE.trigger)
-					showMessage('Your army has failed to conqquer this system. They will be taught a lesson, GOD-QUEEN.')
+					showMessage('Your army has failed to conquer this system. They will be taught a lesson, GOD-QUEEN.')
 				}
 			} else {
 				showMessage('You must reach this system before conquering it.')
@@ -354,7 +358,7 @@ class tier_2 extends Item {
 					STATE.resources.army = STATE.resources.army - (army_mod * 20)
 					STATE.trigger += 1
 					console.log(STATE.trigger)
-					showMessage('Your army has failed to conqquer this system. They will be taught a lesson, GOD-QUEEN.')
+					showMessage('Your army has failed to conquer this system. They will be taught a lesson, GOD-QUEEN.')
 				}
 			} else {
 				showMessage('You must reach this system before conquering it.')
@@ -426,7 +430,7 @@ class tier_3 extends Item {
 					STATE.resources.army = STATE.resources.army - (army_mod * 20)
 					STATE.trigger += 1
 					console.log(STATE.trigger)
-					showMessage('Your army has failed to conqquer this system. They will be taught a lesson, GOD-QUEEN.')
+					showMessage('Your army has failed to conquer this system. They will be taught a lesson, GOD-QUEEN.')
 				}
 			} else {
 				showMessage('You must reach this system before conquering it.')
@@ -499,7 +503,7 @@ class tier_4 extends Item {
 					STATE.resources.army = STATE.resources.army - (army_mod * 20)
 					STATE.trigger += 1
 					console.log(STATE.trigger)
-					showMessage('Your army has failed to conqquer this system. They will be taught a lesson, GOD-QUEEN.')
+					showMessage('Your army has failed to conquer this system. They will be taught a lesson, GOD-QUEEN.')
 				}
 			} else {
 				showMessage('You must reach this system before conquering it.')
@@ -518,6 +522,9 @@ function init() {
 
   var tier0 = new tier_0();
   place(tier0, 20, 21);
+
+  var tier1 = new tier_1();
+  place(tier1, 30, 27);
 
   // Setup the Menu for buying stuff
   var menu = new Menu('Intergalactic Bureau of Defense', [
