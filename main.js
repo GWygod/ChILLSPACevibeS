@@ -101,7 +101,10 @@ const STATE = {
   event: 0,
   trigger: 1,
   active: false,
-  victory: null 
+  victory: null,
+  Agri_system: 0,
+  Ext_system: 0,
+  Tax_system: 0
 }
 
 function battle(d1,mod1,mod2) {
@@ -151,11 +154,20 @@ class myemptySpace extends Item {
 
 class mytier_0 extends Item {
 	get info() {
-		return 'This is system is under your protection, GOD-QUEEN.'
+		return 'This is system is under your protection, GOD-QUEEN. You may use it as you wish. (Click on it)'
 	}
 
 	get image() {
 		return 'conquered_tier_0'
+	}
+
+	onClick() {
+		let cev = new Event('RESOURCE ACQUISITION', 'It is time for you to decide what to do with this system, GOD-QUEEN.' [
+			new Action('Agricultural Terraforming', {energy: 10},() => {
+				if (STATE.trigger % 1 == 0) {
+
+				}
+			})])
 	}
 }
 
