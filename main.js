@@ -202,7 +202,7 @@ class tier_0 extends Item {
 					STATE.resources.army = STATE.resources.army - (army_mod * 20)
 					STATE.trigger += 1
 					console.log(STATE.trigger)
-					showMessage('Your army has failed to conqquer this system. They will be taught a lesson, GOD-QUEEN.')
+					showMessage('Your army has failed to conquer this system. They will be taught a lesson, GOD-QUEEN.')
 				}
 			} else {
 				showMessage('You must reach this system before conquering it.')
@@ -275,7 +275,7 @@ class tier_1 extends Item {
 					STATE.resources.army = STATE.resources.army - (army_mod * 20)
 					STATE.trigger += 1
 					console.log(STATE.trigger)
-					showMessage('Your army has failed to conqquer this system. They will be taught a lesson, GOD-QUEEN.')
+					showMessage('Your army has failed to conquer this system. They will be taught a lesson, GOD-QUEEN.')
 				}
 			} else {
 				showMessage('You must reach this system before conquering it.')
@@ -340,15 +340,15 @@ class tier_2 extends Item {
 					STATE.trigger += 1
 					STATE.resources.systems += 1
 					console.log(STATE.trigger)
-					var my1 = new mytier_1()
-					place(my1, this.x, this.y)
+					var my2 = new mytier_2()
+					place(my2, this.x, this.y)
 					showMessage('You have conquered this system. Glory be to the GOD-QUEEN!')
 				} else if (STATE.victory == false) {
 					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
 					STATE.resources.army = STATE.resources.army - (army_mod * 20)
 					STATE.trigger += 1
 					console.log(STATE.trigger)
-					showMessage('Your army has failed to conqquer this system. They will be taught a lesson, GOD-QUEEN.')
+					showMessage('Your army has failed to conquer this system. They will be taught a lesson, GOD-QUEEN.')
 				}
 			} else {
 				showMessage('You must reach this system before conquering it.')
@@ -420,7 +420,7 @@ class tier_3 extends Item {
 					STATE.resources.army = STATE.resources.army - (army_mod * 20)
 					STATE.trigger += 1
 					console.log(STATE.trigger)
-					showMessage('Your army has failed to conqquer this system. They will be taught a lesson, GOD-QUEEN.')
+					showMessage('Your army has failed to conquer this system. They will be taught a lesson, GOD-QUEEN.')
 				}
 			} else {
 				showMessage('You must reach this system before conquering it.')
@@ -493,7 +493,7 @@ class tier_4 extends Item {
 					STATE.resources.army = STATE.resources.army - (army_mod * 20)
 					STATE.trigger += 1
 					console.log(STATE.trigger)
-					showMessage('Your army has failed to conqquer this system. They will be taught a lesson, GOD-QUEEN.')
+					showMessage('Your army has failed to conquer this system. They will be taught a lesson, GOD-QUEEN.')
 				}
 			} else {
 				showMessage('You must reach this system before conquering it.')
