@@ -2,7 +2,7 @@
 
 // REQUIRED: define images we want to use
 const IMAGES = {
-  flag: 'https://i.imgur.com/M8u25cr.png',
+  symbol: 'https://i.imgur.com/M8u25cr.png',
   space: 'https://i.imgur.com/hucO1lV.jpg',
   conquered_space: 'https://i.imgur.com/9JvxNJg.jpg',
   tier_0: 'https://i.imgur.com/plKeH7v.png',
@@ -121,7 +121,7 @@ class mySystem extends Item {
   }
 
   get image() {
-    return 'flag'
+    return 'symbol'
   }
 
   onPlace() {
