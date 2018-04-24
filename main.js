@@ -88,7 +88,7 @@ const STATE = {
     supplies: 30,
     morale: 90,
     energy: 100,
-    money: 0,
+    money: 100,
   },
   event: 0,
   trigger: 1,
