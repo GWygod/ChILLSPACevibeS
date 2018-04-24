@@ -4,7 +4,9 @@
 const IMAGES = {
   flag: 'https://i.imgur.com/M8u25cr.png',
   space: 'https://i.imgur.com/hucO1lV.jpg',
-  conquered_space: 'https://i.imgur.com/9JvxNJg.jpg'
+  conquered_space: 'https://i.imgur.com/9JvxNJg.jpg',
+  tier_0: 'https://i.imgur.com/plKeH7v.png',
+  conquered_tier_0: 'https://i.imgur.com/4E87Q2W.png'
 };
 
 class emptySpace extends Cell {
@@ -15,7 +17,7 @@ class emptySpace extends Cell {
   }
 
   get info() {
-    return 'This is empty space. You must traverse it to find other planets.'
+    return 'This is empty space. You must traverse it to find other systems.'
   }
 
   get image() {
@@ -30,24 +32,30 @@ class emptySpace extends Cell {
         self.conquerable = true
       } else if (neighbor.item instanceof mySystem) {
         self.conquerable = true
+      } else if (neighbor.item instanceof mytier_0) {
+      	self.conquerable = true
       }
     })
   }
 
   onClick() {
     console.log(this.conquerable)
-    if (this.conquerable == true) {
-      this.status += 1;
-      if (this.status >= 1) {
-        STATE.resources.energy = STATE.resources.energy - 5
-        STATE.trigger += 1
-        console.log(STATE.trigger)
-        var mySpace = new myemptySpace()
-        place(mySpace, this.x, this.y)
-        showMessage('You have conquered free space. Your troops are free to move.')
-      }
+    if (STATE.resources.energy >=5) {
+			if (this.conquerable == true) {
+				this.status += 1;
+				if (this.status >= 1) {
+					STATE.resources.energy = STATE.resources.energy - 5
+		    	STATE.trigger += 1
+		    	console.log(STATE.trigger)
+		    	var mySpace = new myemptySpace()
+		    	place(mySpace, this.x, this.y)
+		    	showMessage('You have conquered free space. Your troops are free to move.')
+		  	}
+			} else {
+		    showMessage('You must reach this position before conquering it, GOD-QUEEN.')
+			}
     } else {
-        showMessage('You must reach this tile before conquering it, GOD-QUEEN.')
+    	showMessage('You do not have the energy to move your ships to this position, GOD-QUEEN.')
     }
   }
 }
@@ -84,7 +92,24 @@ const STATE = {
   },
   event: 0,
   trigger: 1,
-  active: false
+  active: false,
+  victory: null 
+}
+
+function battle(d1,mod1,mod2) {
+	var opposedroll = Math.floor(Math.random() * (d1/10)) + 1
+	var yourroll = Math.floor(Math.random() * (STATE.resources.army/20)) + 1
+	console.log(opposedroll)
+	console.log(yourroll)
+	if (opposedroll + (mod1/10) + (mod2/10) >= yourroll + (STATE.resources.supplies/10) + (STATE.resources.morale/10)) {
+		STATE.victory = false
+		var loss = yourroll/4
+		return loss
+	} else if (opposedroll + (mod1/10) + (mod2/10) < yourroll + (STATE.resources.supplies/10) + (STATE.resources.morale/10)) {
+		STATE.victory = true
+		var gain = opposedroll/4
+		return gain
+	}
 }
 
 class mySystem extends Item {
@@ -116,11 +141,84 @@ class myemptySpace extends Item {
   }
 }
 
+class mytier_0 extends Item {
+	get info() {
+		return 'This is system is under your protection, GOD-QUEEN.'
+	}
+
+	get image() {
+		return 'conquered_tier_0'
+	}
+}
+
+class tier_0 extends Item {
+
+	init() {
+    this.army = 0;
+    this.supplies = 0;
+    this.morale = 0;
+    this.conquerable = false;
+  }
+
+	get info() {
+		return 'This is an unprotected system.'
+	}
+
+	get image() {
+		return 'tier_0'
+	}
+
+  update(neighbors) {
+    var self = this;
+
+    neighbors.forEach(function(neighbor) {
+      if (neighbor.item instanceof myemptySpace) {
+        self.conquerable = true
+      } else if (neighbor.item instanceof mySystem) {
+        self.conquerable = true
+      } else if (neighbor.item instanceof mytier_0) {
+      	self.conquerable = true
+      }
+    })
+  }
+
+	onClick() {
+		if (STATE.resources.energy >= 5 * (STATE.resources.army/20)) {
+			if (this.conquerable == true) {
+				var army_mod = battle(this.army,this.supplies,this.morale)
+				if (STATE.victory == true) {
+					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
+					STATE.resources.army = STATE.resources.army + (army_mod * 20)
+					STATE.trigger += 1
+					STATE.resources.systems += 1
+					console.log(STATE.trigger)
+					var my0 = new mytier_0()
+					place(my0, this.x, this.y)
+					showMessage('You have conquered this system. Glory be to the GOD-QUEEN!')
+				} else if (STATE.victory == false) {
+					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
+					STATE.resources.army = STATE.resources.army - (army_mod * 20)
+					STATE.trigger += 1
+					console.log(STATE.trigger)
+					showMessage('Your army has failed to conqquer this system. They will be taught a lesson, GOD-QUEEN.')
+				}
+			} else {
+				showMessage('You must reach this system before conquering it.')
+			}
+		} else {
+    	showMessage('You do not have the energy to move your ships to conquer this system, GOD-QUEEN.')
+    }
+	}
+}
+
 // Initial setup of the game
 function init() {
-  var systems = new mySystem();
-  place(systems, 24, 24);
-  STATE.systems += 1;
+  var system = new mySystem();
+  place(system, 24, 24);
+  STATE.resources.systems += 1;
+
+  var tier0 = new tier_0();
+  place(tier0, 20, 21);
 
   // Setup the Menu for buying stuff
   var menu = new Menu('Intergalactic Bureau of Defense', [
