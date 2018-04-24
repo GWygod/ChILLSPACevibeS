@@ -8,17 +8,13 @@ const IMAGES = {
   tier_0: 'https://i.imgur.com/plKeH7v.png',
   conquered_tier_0: 'https://i.imgur.com/MzkzKCO.png',
   tier_1: 'https://i.imgur.com/yXwcjIY.png',
-<<<<<<< HEAD
-  conquered_tier_1: ''
-  tier_2:
-  conquered_tier_2:
-  tier_3:
-  conquered_tier_3:
-  tier_4:
-  conquered_tier_4:
-=======
-  conquered_tier_1: 'https://i.imgur.com/90miEKP.png'
->>>>>>> 5c3303a8bd0702d4ebd12fc9114063e5aa09f76c
+  conquered_tier_1: 'https://i.imgur.com/90miEKP.png',
+  tier_2: 'https://i.imgur.com/jlC3wjG.png',
+  conquered_tier_2: 'https://i.imgur.com/gC0Qj07.png',
+  tier_3: 'https://i.imgur.com/qxDSLxT.png',
+  conquered_tier_3: 'https://i.imgur.com/c5sj8JB.png',
+  tier_4: 'https://i.imgur.com/GTU27sz.png',
+  conquered_tier_4: 'https://i.imgur.com/quT2EkX.png'
 };
 
 class emptySpace extends Cell {
