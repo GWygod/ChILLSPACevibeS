@@ -9,6 +9,12 @@ const IMAGES = {
   conquered_tier_0: 'https://i.imgur.com/4E87Q2W.png'
   tier_1: 'https://i.imgur.com/yXwcjIY.png',
   conquered_tier_1: ''
+  tier_2:
+  conquered_tier_2:
+  tier_3:
+  conquered_tier_3:
+  tier_4:
+  conquered_tier_4:
 };
 
 class emptySpace extends Cell {
@@ -340,8 +346,8 @@ class tier_2 extends Item {
 					STATE.trigger += 1
 					STATE.resources.systems += 1
 					console.log(STATE.trigger)
-					var my1 = new mytier_1()
-					place(my1, this.x, this.y)
+					var my2 = new mytier_2()
+					place(my2, this.x, this.y)
 					showMessage('You have conquered this system. Glory be to the GOD-QUEEN!')
 				} else if (STATE.victory == false) {
 					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
@@ -412,8 +418,8 @@ class tier_3 extends Item {
 					STATE.trigger += 1
 					STATE.resources.systems += 1
 					console.log(STATE.trigger)
-					var my1 = new mytier_1()
-					place(my1, this.x, this.y)
+					var my3 = new mytier_3()
+					place(my3, this.x, this.y)
 					showMessage('You have conquered this system. Glory be to the GOD-QUEEN!')
 				} else if (STATE.victory == false) {
 					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
@@ -485,8 +491,8 @@ class tier_4 extends Item {
 					STATE.trigger += 1
 					STATE.resources.systems += 1
 					console.log(STATE.trigger)
-					var my1 = new mytier_1()
-					place(my1, this.x, this.y)
+					var my4 = new mytier_4()
+					place(my4, this.x, this.y)
 					showMessage('You have conquered this system. Glory be to the GOD-QUEEN!')
 				} else if (STATE.victory == false) {
 					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
