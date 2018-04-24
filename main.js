@@ -213,6 +213,9 @@ class tier_0 extends Item {
 	}
 }
 
+
+
+
 class mytier_1 extends Item {
 	get info() {
 		return 'This is system is under your protection, GOD-QUEEN.'
@@ -238,6 +241,224 @@ class tier_1 extends Item {
 
 	get image() {
 		return 'tier_1'
+	}
+
+  update(neighbors) {
+    var self = this;
+
+    neighbors.forEach(function(neighbor) {
+      if (neighbor.item instanceof myemptySpace) {
+        self.conquerable = true
+      } else if (neighbor.item instanceof mySystem) {
+        self.conquerable = true
+      } else if (neighbor.item instanceof mytier_1) {
+      	self.conquerable = true
+      }
+    })
+  }
+
+	onClick() {
+		if (STATE.resources.energy >= 5 * (STATE.resources.army/20)) {
+			if (this.conquerable == true) {
+				var army_mod = battle(this.army,this.supplies,this.morale)
+				if (STATE.victory == true) {
+					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
+					STATE.resources.army = STATE.resources.army + (army_mod * 20)
+					STATE.trigger += 1
+					STATE.resources.systems += 1
+					console.log(STATE.trigger)
+					var my1 = new mytier_1()
+					place(my1, this.x, this.y)
+					showMessage('You have conquered this system. Glory be to the GOD-QUEEN!')
+				} else if (STATE.victory == false) {
+					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
+					STATE.resources.army = STATE.resources.army - (army_mod * 20)
+					STATE.trigger += 1
+					console.log(STATE.trigger)
+					showMessage('Your army has failed to conqquer this system. They will be taught a lesson, GOD-QUEEN.')
+				}
+			} else {
+				showMessage('You must reach this system before conquering it.')
+			}
+		} else {
+    	showMessage('You do not have the energy to move your ships to conquer this system, GOD-QUEEN.')
+    }
+	}
+}
+
+
+
+
+class mytier_2 extends Item {
+	get info() {
+		return 'This is system is under your protection, GOD-QUEEN.'
+	}
+
+	get image() {
+		return 'conquered_tier_2'
+	}
+}
+
+class tier_2 extends Item {
+
+	init() {
+    this.army = 100;
+    this.supplies = 50;
+    this.morale = 60;
+    this.conquerable = false;
+  }
+
+	get info() {
+		return 'This is an unprotected system.'
+	}
+
+	get image() {
+		return 'tier_2'
+	}
+
+  update(neighbors) {
+    var self = this;
+
+    neighbors.forEach(function(neighbor) {
+      if (neighbor.item instanceof myemptySpace) {
+        self.conquerable = true
+      } else if (neighbor.item instanceof mySystem) {
+        self.conquerable = true
+      } else if (neighbor.item instanceof mytier_1) {
+      	self.conquerable = true
+      }
+    })
+  }
+
+	onClick() {
+		if (STATE.resources.energy >= 5 * (STATE.resources.army/20)) {
+			if (this.conquerable == true) {
+				var army_mod = battle(this.army,this.supplies,this.morale)
+				if (STATE.victory == true) {
+					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
+					STATE.resources.army = STATE.resources.army + (army_mod * 20)
+					STATE.trigger += 1
+					STATE.resources.systems += 1
+					console.log(STATE.trigger)
+					var my1 = new mytier_1()
+					place(my1, this.x, this.y)
+					showMessage('You have conquered this system. Glory be to the GOD-QUEEN!')
+				} else if (STATE.victory == false) {
+					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
+					STATE.resources.army = STATE.resources.army - (army_mod * 20)
+					STATE.trigger += 1
+					console.log(STATE.trigger)
+					showMessage('Your army has failed to conqquer this system. They will be taught a lesson, GOD-QUEEN.')
+				}
+			} else {
+				showMessage('You must reach this system before conquering it.')
+			}
+		} else {
+    	showMessage('You do not have the energy to move your ships to conquer this system, GOD-QUEEN.')
+    }
+	}
+}
+
+
+
+class mytier_3 extends Item {
+	get info() {
+		return 'This is system is under your protection, GOD-QUEEN.'
+	}
+
+	get image() {
+		return 'conquered_tier_3'
+	}
+}
+
+class tier_3 extends Item {
+
+	init() {
+    this.army = 150;
+    this.supplies = 70;
+    this.morale = 70;
+    this.conquerable = false;
+  }
+
+	get info() {
+		return 'This is an unprotected system.'
+	}
+
+	get image() {
+		return 'tier_3'
+	}
+
+  update(neighbors) {
+    var self = this;
+
+    neighbors.forEach(function(neighbor) {
+      if (neighbor.item instanceof myemptySpace) {
+        self.conquerable = true
+      } else if (neighbor.item instanceof mySystem) {
+        self.conquerable = true
+      } else if (neighbor.item instanceof mytier_1) {
+      	self.conquerable = true
+      }
+    })
+  }
+
+	onClick() {
+		if (STATE.resources.energy >= 5 * (STATE.resources.army/20)) {
+			if (this.conquerable == true) {
+				var army_mod = battle(this.army,this.supplies,this.morale)
+				if (STATE.victory == true) {
+					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
+					STATE.resources.army = STATE.resources.army + (army_mod * 20)
+					STATE.trigger += 1
+					STATE.resources.systems += 1
+					console.log(STATE.trigger)
+					var my1 = new mytier_1()
+					place(my1, this.x, this.y)
+					showMessage('You have conquered this system. Glory be to the GOD-QUEEN!')
+				} else if (STATE.victory == false) {
+					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
+					STATE.resources.army = STATE.resources.army - (army_mod * 20)
+					STATE.trigger += 1
+					console.log(STATE.trigger)
+					showMessage('Your army has failed to conqquer this system. They will be taught a lesson, GOD-QUEEN.')
+				}
+			} else {
+				showMessage('You must reach this system before conquering it.')
+			}
+		} else {
+    	showMessage('You do not have the energy to move your ships to conquer this system, GOD-QUEEN.')
+    }
+	}
+}
+
+
+
+
+class mytier_4 extends Item {
+	get info() {
+		return 'This is system is under your protection, GOD-QUEEN.'
+	}
+
+	get image() {
+		return 'conquered_tier_4'
+	}
+}
+
+class tier_4 extends Item {
+
+	init() {
+    this.army = 200;
+    this.supplies = 90;
+    this.morale = 80;
+    this.conquerable = false;
+  }
+
+	get info() {
+		return 'This is an unprotected system.'
+	}
+
+	get image() {
+		return 'tier_4'
 	}
 
   update(neighbors) {
