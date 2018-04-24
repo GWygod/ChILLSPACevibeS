@@ -4,11 +4,11 @@
 const IMAGES = {
   symbol: 'https://i.imgur.com/8H0bKkv.png',
   space: 'https://i.imgur.com/hucO1lV.jpg',
-  conquered_space: 'https://i.imgur.com/9JvxNJg.jpg',
+  conquered_space: 'https://i.imgur.com/7tA1VtU.jpg',
   tier_0: 'https://i.imgur.com/plKeH7v.png',
-  conquered_tier_0: 'https://i.imgur.com/4E87Q2W.png'
+  conquered_tier_0: 'https://i.imgur.com/MzkzKCO.png',
   tier_1: 'https://i.imgur.com/yXwcjIY.png',
-  conquered_tier_1: ''
+  conquered_tier_1: 'https://i.imgur.com/90miEKP.png'
 };
 
 class emptySpace extends Cell {
@@ -291,6 +291,9 @@ function init() {
 
   var tier0 = new tier_0();
   place(tier0, 20, 21);
+
+  var tier1 = new tier_1();
+  place(tier1, 30, 27);
 
   // Setup the Menu for buying stuff
   var menu = new Menu('Intergalactic Bureau of Defense', [
