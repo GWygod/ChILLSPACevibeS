@@ -7,6 +7,8 @@ const IMAGES = {
   conquered_space: 'https://i.imgur.com/9JvxNJg.jpg',
   tier_0: 'https://i.imgur.com/plKeH7v.png',
   conquered_tier_0: 'https://i.imgur.com/4E87Q2W.png'
+  tier_1: 'https://i.imgur.com/yXwcjIY.png',
+  conquered_tier_1: ''
 };
 
 class emptySpace extends Cell {
@@ -220,7 +222,6 @@ class mytier_1 extends Item {
 		return 'conquered_tier_1'
 	}
 }
-
 
 class tier_1 extends Item {
 
