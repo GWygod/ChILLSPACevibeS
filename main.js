@@ -692,6 +692,15 @@ function init() {
 
   let start = new Event('How To Play','You can drag the screen to see your surroundings. Click empty spaces next to systems you have conquered to conquer them. Click conquered systems to designate what resource they will produce.')
 
+	var menu = new Menu('Zoom In/Out', [
+		new Button('Zoom Out', () => {
+		GAME.grid.setCellSize(25)
+		}),
+		new Button('Original Size', () => {
+		GAME.grid.setCellSize(75)
+		}),
+	]);
+
   supplies_meter = new Meter('Supplies', 0);
   morale_meter = new Meter('Morale', 0);
 }
