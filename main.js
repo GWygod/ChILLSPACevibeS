@@ -105,7 +105,8 @@ const STATE = {
   victory: null,
   Agri_system: 0,
   Ext_system: 0,
-  Tax_system: 0
+  Tax_system: 0,
+  energy_production: 1
 }
 
 function battle(d1,mod1,mod2) {
@@ -642,33 +643,65 @@ function init() {
   }, 1000)
 
   defineHarvester('energy', function() {
-  	return STATE.Ext_system/10
+  	return (STATE.Ext_system/10)*STATE.energy_production
   }, 1000)
 
   defineHarvester('money', function() {
   	return STATE.Tax_system/10
   }, 1000)
 
+  let HireMercenaries = new Bonus(
+  'You have hired the greatest mercenaries this side of the Tannhauser Gate.',
+  'They will rain blood upon your enemies.',
+  {'money': 50},
+  () => {
+      STATE.resources.army += 50;
+  });
+
+  let UpdateSupplyInfrastructure = new Bonus(
+  'You have decided to update your infrastructure.',
+  'They will greatly improve your farms.',
+  {'energy': 50},
+  () => {
+      STATE.resources.supplies += 50;
+  });
+
+  let BuildEnergyFacility = new Bonus(
+  'You have hired the greatest civil engineers to build new energy facilities.',
+  'Your energy production will double.',
+  {'energy': 50},
+  () => {
+      STATE.energy_production = 2;
+  });
+
+  let InvokeSpiritoftheEmpire = new Bonus(
+  'You have decided to send soldiers and money to your capital for a massive parade.',
+  'It will be glorious.',
+  {'money': 80, 'army': 80},
+  () => {
+  		STATE.resources.morale = 100
+  })
+
   // Setup the Menu for buying stuff
   var menu = new Menu('Intergalactic Bureau of Defense', [
   	new BuyButton('Hire Mercenaries *increases army by 50*', HireMercenaries),
   	new BuyButton('Update Supply Infrastructure *increases supplies by 50*', UpdateSupplyInfrastructure),
   	new BuyButton('Build Energy Facility *increases energy by 50*', BuildEnergyFacility),
-  	new BuyButton('Invoke spirit of the Empire *increases morale by 50*', InvokeSpiritoftheEmpire)
+  	new BuyButton('Invoke spirit of the Empire *restores morale to 100*', InvokeSpiritoftheEmpire)
   ]);
 
+  let start = new Event('How To Play','You can drag the screen to see your surroundings. Click empty spaces next to systems you have conquered to conquer them. Click conquered systems to designate what resource they will produce.')
 
-
-  // supplies_meter = new Meter('Supplies', 0);
-  // morale_meter = new Meter('Morale', 0);
+  supplies_meter = new Meter('Supplies', 0);
+  morale_meter = new Meter('Morale', 0);
 }
 
 // The game's main loop.
 // We're just using it to set a background color
 function main() {
 
-  // supplies_meter.update(STATE.resources.supplies)
-  // morale_meter.update(STATE.resources.morale)
+  supplies_meter.update(STATE.resources.supplies)
+  morale_meter.update(STATE.resources.morale)
 
   STATE.resources.supplies = Math.min(STATE.resources.supplies, 100)
   STATE.resources.morale = Math.min(STATE.resources.morale, 100)
