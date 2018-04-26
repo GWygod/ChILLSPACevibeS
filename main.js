@@ -170,15 +170,15 @@ class mytier_0 extends Item {
 	onClick() {
 		if (this.acquisition == false) {
 			let cev = new Event('RESOURCE ACQUISITION', 'It is time for you to decide what to do with this system, GOD-QUEEN.', [
-				new Action('Agricultural Terraforming', {energy: 10},() => {
+				new Action('Agricultural Terraforming *increases supplies*', {energy: 10},() => {
 					STATE.Agri_system += 1
 					this.acquisition = true
 				}),
-				new Action('Fuel Extraction', {energy: 10},() => {
+				new Action('Fuel Extraction *increases energy*', {energy: 10},() => {
 					STATE.Ext_system += 1
 					this.acquisition = true
 				}),
-				new Action('Taxation', {energy: 10},() => {
+				new Action('Taxation *increases money*', {energy: 10},() => {
 					STATE.Tax_system += 1
 					this.acquisition = true
 				})
