@@ -2,19 +2,19 @@
 
 // REQUIRED: define images we want to use
 const IMAGES = {
-  symbol: 'https://i.imgur.com/8H0bKkv.png',
+  starting_system: 'https://i.imgur.com/Zy7NxMW.png',
   space: 'https://i.imgur.com/hucO1lV.jpg',
-  conquered_space: 'https://i.imgur.com/7tA1VtU.jpg',
-  tier_0: 'https://i.imgur.com/plKeH7v.png',
-  conquered_tier_0: 'https://i.imgur.com/MzkzKCO.png',
-  tier_1: 'https://i.imgur.com/yXwcjIY.png',
-  conquered_tier_1: 'https://i.imgur.com/90miEKP.png',
-  tier_2: 'https://i.imgur.com/jlC3wjG.png',
-  conquered_tier_2: 'https://i.imgur.com/gC0Qj07.png',
-  tier_3: 'https://i.imgur.com/qxDSLxT.png',
-  conquered_tier_3: 'https://i.imgur.com/c5sj8JB.png',
-  tier_4: 'https://i.imgur.com/GTU27sz.png',
-  conquered_tier_4: 'https://i.imgur.com/quT2EkX.png'
+  conquered_space: 'https://i.imgur.com/D70jLSq.png',
+  tier_0: 'https://i.imgur.com/wVHxjH6.png',
+  conquered_tier_0: 'https://i.imgur.com/WGuQ0tJ.png',
+  tier_1: 'https://i.imgur.com/iohY7Me.png',
+  conquered_tier_1: 'https://i.imgur.com/KRexpcl.png',
+  tier_2: 'https://i.imgur.com/Kmy830D.png',
+  conquered_tier_2: 'https://i.imgur.com/GJuyiF9.png',
+  tier_3: 'https://i.imgur.com/rh15kgJ.png',
+  conquered_tier_3: 'https://i.imgur.com/pLIENcw.png',
+  tier_4: 'https://i.imgur.com/UuOQ0mf.png',
+  conquered_tier_4: 'https://i.imgur.com/WaEbcRQ.png'
 };
 
 class emptySpace extends Cell {
@@ -76,6 +76,7 @@ const GRID_EMPTY = [234, 234, 234];
 const GRID_TYPE = 'hex';
 const GRID_DEFAULT_CELL = emptySpace;
 const TEXT_DEFAULT_COLOR = [250,250,250];
+const BACKGROUND_COLOR = [0,0,0]
 
 // REQUIRED: define how our resources will be represented
 const RESOURCES = {
@@ -130,7 +131,7 @@ class mySystem extends Item {
   }
 
   get image() {
-    return 'symbol'
+    return 'starting_system'
   }
 
   onPlace() {
@@ -153,6 +154,11 @@ class myemptySpace extends Item {
 }
 
 class mytier_0 extends Item {
+
+	init() {
+		this.acquisition = false
+	}
+
 	get info() {
 		return 'This is system is under your protection, GOD-QUEEN. You may use it as you wish. (Click on it)'
 	}
@@ -162,12 +168,22 @@ class mytier_0 extends Item {
 	}
 
 	onClick() {
-		let cev = new Event('RESOURCE ACQUISITION', 'It is time for you to decide what to do with this system, GOD-QUEEN.' [
-			new Action('Agricultural Terraforming', {energy: 10},() => {
-				if (STATE.trigger % 1 == 0) {
-
-				}
-			})])
+		if (this.acquisition == false) {
+			let cev = new Event('RESOURCE ACQUISITION', 'It is time for you to decide what to do with this system, GOD-QUEEN.', [
+				new Action('Agricultural Terraforming', {energy: 10},() => {
+					STATE.Agri_system += 1
+					this.acquisition = true
+				}),
+				new Action('Fuel Extraction', {energy: 10},() => {
+					STATE.Ext_system += 1
+					this.acquisition = true
+				}),
+				new Action('Taxation', {energy: 10},() => {
+					STATE.Tax_system += 1
+					this.acquisition = true
+				})
+			]);
+		}
 	}
 }
 
@@ -230,9 +246,6 @@ class tier_0 extends Item {
     }
 	}
 }
-
-
-
 
 class mytier_1 extends Item {
 	get info() {
@@ -304,9 +317,6 @@ class tier_1 extends Item {
 	}
 }
 
-
-
-
 class mytier_2 extends Item {
 	get info() {
 		return 'This is system is under your protection, GOD-QUEEN.'
@@ -376,8 +386,6 @@ class tier_2 extends Item {
     }
 	}
 }
-
-
 
 class mytier_3 extends Item {
 	get info() {
@@ -449,9 +457,6 @@ class tier_3 extends Item {
 	}
 }
 
-
-
-
 class mytier_4 extends Item {
 	get info() {
 		return 'This is system is under your protection, GOD-QUEEN.'
@@ -522,6 +527,8 @@ class tier_4 extends Item {
 	}
 }
 
+var supplies_meter, morale_meter
+
 // Initial setup of the game
 function init() {
   var system = new mySystem();
@@ -534,15 +541,35 @@ function init() {
   var tier1 = new tier_1();
   place(tier1, 30, 27);
 
+  defineHarvester('supplies', function() {
+  	return STATE.Agri_system/10
+  }, 1000)
+
+  defineHarvester('energy', function() {
+  	return STATE.Ext_system/10
+  }, 1000)
+
+  defineHarvester('money', function() {
+  	return STATE.Tax_system/10
+  }, 1000)
+
   // Setup the Menu for buying stuff
   var menu = new Menu('Intergalactic Bureau of Defense', [
   ]);
+
+  // supplies_meter = new Meter('Supplies', 0);
+  // morale_meter = new Meter('Morale', 0);
 }
 
 // The game's main loop.
 // We're just using it to set a background color
 function main() {
-  background((0, 0, 0));
+
+  // supplies_meter.update(STATE.resources.supplies)
+  // morale_meter.update(STATE.resources.morale)
+
+  STATE.resources.supplies = Math.min(STATE.resources.supplies, 100)
+  STATE.resources.morale = Math.min(STATE.resources.morale, 100)
 
   if (STATE.trigger % 11 == 0) {
   	STATE.active = true
