@@ -248,12 +248,36 @@ class tier_0 extends Item {
 }
 
 class mytier_1 extends Item {
+
+	init() {
+		this.acquisition = false
+	}
+
 	get info() {
 		return 'This is system is under your protection, GOD-QUEEN.'
 	}
 
 	get image() {
 		return 'conquered_tier_1'
+	}
+
+	onClick() {
+		if (this.acquisition == false) {
+			let cev = new Event('RESOURCE ACQUISITION', 'It is time for you to decide what to do with this system, GOD-QUEEN.', [
+				new Action('Agricultural Terraforming', {energy: 10},() => {
+					STATE.Agri_system += 1
+					this.acquisition = true
+				}),
+				new Action('Fuel Extraction', {energy: 10},() => {
+					STATE.Ext_system += 1
+					this.acquisition = true
+				}),
+				new Action('Taxation', {energy: 10},() => {
+					STATE.Tax_system += 1
+					this.acquisition = true
+				})
+			]);
+		}
 	}
 }
 
@@ -318,12 +342,36 @@ class tier_1 extends Item {
 }
 
 class mytier_2 extends Item {
+
+	init() {
+		this.acquisition = false
+	}
+
 	get info() {
 		return 'This is system is under your protection, GOD-QUEEN.'
 	}
 
 	get image() {
 		return 'conquered_tier_2'
+	}
+
+	onClick() {
+		if (this.acquisition == false) {
+			let cev = new Event('RESOURCE ACQUISITION', 'It is time for you to decide what to do with this system, GOD-QUEEN.', [
+				new Action('Agricultural Terraforming', {energy: 10},() => {
+					STATE.Agri_system += 1
+					this.acquisition = true
+				}),
+				new Action('Fuel Extraction', {energy: 10},() => {
+					STATE.Ext_system += 1
+					this.acquisition = true
+				}),
+				new Action('Taxation', {energy: 10},() => {
+					STATE.Tax_system += 1
+					this.acquisition = true
+				})
+			]);
+		}
 	}
 }
 
@@ -388,12 +436,36 @@ class tier_2 extends Item {
 }
 
 class mytier_3 extends Item {
+
+	init() {
+		this.acquisition = false
+	}
+
 	get info() {
 		return 'This is system is under your protection, GOD-QUEEN.'
 	}
 
 	get image() {
 		return 'conquered_tier_3'
+	}
+
+	onClick() {
+		if (this.acquisition == false) {
+			let cev = new Event('RESOURCE ACQUISITION', 'It is time for you to decide what to do with this system, GOD-QUEEN.', [
+				new Action('Agricultural Terraforming', {energy: 10},() => {
+					STATE.Agri_system += 1
+					this.acquisition = true
+				}),
+				new Action('Fuel Extraction', {energy: 10},() => {
+					STATE.Ext_system += 1
+					this.acquisition = true
+				}),
+				new Action('Taxation', {energy: 10},() => {
+					STATE.Tax_system += 1
+					this.acquisition = true
+				})
+			]);
+		}
 	}
 }
 
@@ -458,12 +530,36 @@ class tier_3 extends Item {
 }
 
 class mytier_4 extends Item {
+
+	init() {
+		this.acquisition = false
+	}
+
 	get info() {
 		return 'This is system is under your protection, GOD-QUEEN.'
 	}
 
 	get image() {
 		return 'conquered_tier_4'
+	}
+
+	onClick() {
+		if (this.acquisition == false) {
+			let cev = new Event('RESOURCE ACQUISITION', 'It is time for you to decide what to do with this system, GOD-QUEEN.', [
+				new Action('Agricultural Terraforming', {energy: 10},() => {
+					STATE.Agri_system += 1
+					this.acquisition = true
+				}),
+				new Action('Fuel Extraction', {energy: 10},() => {
+					STATE.Ext_system += 1
+					this.acquisition = true
+				}),
+				new Action('Taxation', {energy: 10},() => {
+					STATE.Tax_system += 1
+					this.acquisition = true
+				})
+			]);
+		}
 	}
 }
 
