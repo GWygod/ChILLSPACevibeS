@@ -686,7 +686,7 @@ function init() {
   var menu = new Menu('Intergalactic Bureau of Defense', [
   	new BuyButton('Hire Mercenaries *increases army by 50*', HireMercenaries),
   	new BuyButton('Update Supply Infrastructure *increases supplies by 50*', UpdateSupplyInfrastructure),
-  	new BuyButton('Build Energy Facility *increases energy by 50*', BuildEnergyFacility),
+  	new BuyButton('Build Energy Facility *doubles energy production*', BuildEnergyFacility),
   	new BuyButton('Invoke spirit of the Empire *restores morale to 100*', InvokeSpiritoftheEmpire)
   ]);
 
