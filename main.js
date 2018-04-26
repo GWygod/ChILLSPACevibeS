@@ -651,7 +651,13 @@ function init() {
 
   // Setup the Menu for buying stuff
   var menu = new Menu('Intergalactic Bureau of Defense', [
+  	new BuyButton('Hire Mercenaries *increases army by 50*', HireMercenaries),
+  	new BuyButton('Update Supply Infrastructure *increases supplies by 50*', UpdateSupplyInfrastructure),
+  	new BuyButton('Build Energy Facility *increases energy by 50*', BuildEnergyFacility),
+  	new BuyButton('Invoke spirit of the Empire *increases morale by 50*', InvokeSpiritoftheEmpire)
   ]);
+
+
 
   // supplies_meter = new Meter('Supplies', 0);
   // morale_meter = new Meter('Morale', 0);
