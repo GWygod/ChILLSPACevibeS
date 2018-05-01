@@ -96,7 +96,7 @@ const STATE = {
     army: 150,
     supplies: 30,
     morale: 90,
-    energy: 100,
+    energy: 200,
     money: 100,
   },
   event: 0,
