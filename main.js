@@ -651,6 +651,9 @@ function init() {
   place(tier1, 35, 22);
   tier1 = new tier_1();
   place(tier1, 40, 49);
+  tier1 = new tier_1();
+  place(tier1, 10, 19);
+
 
   var tier2 = new tier_2();
   place(tier2, 40, 28);
@@ -658,6 +661,9 @@ function init() {
   place(tier2, 45, 47);
   tier2 = new tier_2();
   place(tier2, 45, 33);
+  tier2 = new tier_2();
+  place(tier2, 39, 13);
+
 
   var tier3 = new tier_3();
   place(tier3, 35, 40);
@@ -665,6 +671,12 @@ function init() {
   place(tier3, 25, 45);
   tier3 = new tier_3();
   place(tier3, 15, 10);
+  tier3 = new tier_3();
+  place(tier3, 10, 13)
+  tier3 = new tier_3();
+  place(tier3, 27, 20);
+  tier3 = new tier_3();
+  place(tier3, 48, 10);
 
 
   var tier4 = new tier_4();
@@ -675,6 +687,12 @@ function init() {
   place(tier4, 5, 8);
   tier4 = new tier_4();
   place(tier4, 47, 30);
+  tier4 = new tier_4();
+  place(tier4, 30, 22);
+  tier4 = new tier_4();
+  place(tier4, 24, 33);
+
+
 
   defineHarvester('supplies', function() {
   	return STATE.Agri_system/5
