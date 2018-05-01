@@ -663,8 +663,18 @@ function init() {
   place(tier3, 35, 40);
   tier3 = new tier_3();
   place(tier3, 25, 45);
+  tier3 = new tier_3();
+  place(tier3, 15, 10);
+
 
   var tier4 = new tier_4();
+  place(tier4, 10, 5);
+  tier4 = new tier_4();
+  place(tier4, 30, 13);
+  tier4 = new tier_4();
+  place(tier4, 5, 8);
+  tier4 = new tier_4();
+  place(tier4, 47, 30);
 
   defineHarvester('supplies', function() {
   	return STATE.Agri_system/10
