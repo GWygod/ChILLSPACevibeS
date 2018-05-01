@@ -42,6 +42,14 @@ class emptySpace extends Cell {
         self.conquerable = true
       } else if (neighbor.item instanceof mytier_0) {
       	self.conquerable = true
+      } else if (neighbor.item instanceof mytier_1) {
+      	self.conquerable = true
+      } else if (neighbor.item instanceof mytier_2) {
+      	self.conquerable = true
+      } else if (neighbor.item instanceof mytier_3) {
+      	self.conquerable = true
+      } else if (neighbor.item instanceof mytier_4) {
+      	self.conquerable = true
       }
     })
   }
@@ -215,6 +223,14 @@ class tier_0 extends Item {
         self.conquerable = true
       } else if (neighbor.item instanceof mytier_0) {
       	self.conquerable = true
+      } else if (neighbor.item instanceof mytier_1) {
+      	self.conquerable = true
+      } else if (neighbor.item instanceof mytier_2) {
+      	self.conquerable = true
+      } else if (neighbor.item instanceof mytier_3) {
+      	self.conquerable = true
+      } else if (neighbor.item instanceof mytier_4) {
+      	self.conquerable = true
       }
     })
   }
@@ -307,7 +323,15 @@ class tier_1 extends Item {
         self.conquerable = true
       } else if (neighbor.item instanceof mySystem) {
         self.conquerable = true
+      } else if (neighbor.item instanceof mytier_0) {
+      	self.conquerable = true
       } else if (neighbor.item instanceof mytier_1) {
+      	self.conquerable = true
+      } else if (neighbor.item instanceof mytier_2) {
+      	self.conquerable = true
+      } else if (neighbor.item instanceof mytier_3) {
+      	self.conquerable = true
+      } else if (neighbor.item instanceof mytier_4) {
       	self.conquerable = true
       }
     })
@@ -401,7 +425,15 @@ class tier_2 extends Item {
         self.conquerable = true
       } else if (neighbor.item instanceof mySystem) {
         self.conquerable = true
+      } else if (neighbor.item instanceof mytier_0) {
+      	self.conquerable = true
       } else if (neighbor.item instanceof mytier_1) {
+      	self.conquerable = true
+      } else if (neighbor.item instanceof mytier_2) {
+      	self.conquerable = true
+      } else if (neighbor.item instanceof mytier_3) {
+      	self.conquerable = true
+      } else if (neighbor.item instanceof mytier_4) {
       	self.conquerable = true
       }
     })
@@ -495,7 +527,15 @@ class tier_3 extends Item {
         self.conquerable = true
       } else if (neighbor.item instanceof mySystem) {
         self.conquerable = true
+      } else if (neighbor.item instanceof mytier_0) {
+      	self.conquerable = true
       } else if (neighbor.item instanceof mytier_1) {
+      	self.conquerable = true
+      } else if (neighbor.item instanceof mytier_2) {
+      	self.conquerable = true
+      } else if (neighbor.item instanceof mytier_3) {
+      	self.conquerable = true
+      } else if (neighbor.item instanceof mytier_4) {
       	self.conquerable = true
       }
     })
@@ -589,7 +629,15 @@ class tier_4 extends Item {
         self.conquerable = true
       } else if (neighbor.item instanceof mySystem) {
         self.conquerable = true
+      } else if (neighbor.item instanceof mytier_0) {
+      	self.conquerable = true
       } else if (neighbor.item instanceof mytier_1) {
+      	self.conquerable = true
+      } else if (neighbor.item instanceof mytier_2) {
+      	self.conquerable = true
+      } else if (neighbor.item instanceof mytier_3) {
+      	self.conquerable = true
+      } else if (neighbor.item instanceof mytier_4) {
       	self.conquerable = true
       }
     })
