@@ -708,8 +708,8 @@ function init() {
 		}),
 	]);
 
-  supplies_meter = new Meter('Supplies', 0);
-  morale_meter = new Meter('Morale', 0);
+  supplies_meter = new Meter('Supplies', 0, [255, 0, 0], [255, 255, 255]);
+  morale_meter = new Meter('Morale', 0, [255, 0, 0], [255, 255, 255]);
 }
 
 // The game's main loop.
