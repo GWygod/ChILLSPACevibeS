@@ -175,11 +175,11 @@ class mytier_0 extends Item {
 					STATE.Agri_system += 1
 					this.acquisition = true
 				}),
-				new Action('Fuel Extraction *increases energy*', {energy: 10},() => {
+				new Action('Fuel Extraction *increases energy*', {money: 10},() => {
 					STATE.Ext_system += 1
 					this.acquisition = true
 				}),
-				new Action('Taxation *increases money*', {energy: 10},() => {
+				new Action('Forced Taxation *increases money*', {army: 10},() => {
 					STATE.Tax_system += 1
 					this.acquisition = true
 				})
@@ -269,11 +269,11 @@ class mytier_1 extends Item {
 					STATE.Agri_system += 1
 					this.acquisition = true
 				}),
-				new Action('Fuel Extraction', {energy: 10},() => {
+				new Action('Fuel Extraction', {money: 10},() => {
 					STATE.Ext_system += 1
 					this.acquisition = true
 				}),
-				new Action('Taxation', {energy: 10},() => {
+				new Action('Forced Taxation', {army: 10},() => {
 					STATE.Tax_system += 1
 					this.acquisition = true
 				})
@@ -363,11 +363,11 @@ class mytier_2 extends Item {
 					STATE.Agri_system += 1
 					this.acquisition = true
 				}),
-				new Action('Fuel Extraction', {energy: 10},() => {
+				new Action('Fuel Extraction', {money: 10},() => {
 					STATE.Ext_system += 1
 					this.acquisition = true
 				}),
-				new Action('Taxation', {energy: 10},() => {
+				new Action('Forced Taxation', {army: 10},() => {
 					STATE.Tax_system += 1
 					this.acquisition = true
 				})
@@ -457,11 +457,11 @@ class mytier_3 extends Item {
 					STATE.Agri_system += 1
 					this.acquisition = true
 				}),
-				new Action('Fuel Extraction', {energy: 10},() => {
+				new Action('Fuel Extraction', {money: 10},() => {
 					STATE.Ext_system += 1
 					this.acquisition = true
 				}),
-				new Action('Taxation', {energy: 10},() => {
+				new Action('Forced Taxation', {army: 10},() => {
 					STATE.Tax_system += 1
 					this.acquisition = true
 				})
@@ -551,11 +551,11 @@ class mytier_4 extends Item {
 					STATE.Agri_system += 1
 					this.acquisition = true
 				}),
-				new Action('Fuel Extraction', {energy: 10},() => {
+				new Action('Fuel Extraction', {money: 10},() => {
 					STATE.Ext_system += 1
 					this.acquisition = true
 				}),
-				new Action('Taxation', {energy: 10},() => {
+				new Action('Forced Taxation', {army: 10},() => {
 					STATE.Tax_system += 1
 					this.acquisition = true
 				})
@@ -677,7 +677,7 @@ function init() {
   place(tier4, 47, 30);
 
   defineHarvester('supplies', function() {
-  	return STATE.Agri_system/10
+  	return STATE.Agri_system/5
   }, 1000)
 
   defineHarvester('energy', function() {
@@ -685,7 +685,7 @@ function init() {
   }, 1000)
 
   defineHarvester('money', function() {
-  	return STATE.Tax_system/10
+  	return STATE.Tax_system/5
   }, 1000)
 
   let HireMercenaries = new Bonus(
