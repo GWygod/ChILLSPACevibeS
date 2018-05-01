@@ -2,19 +2,19 @@
 
 // REQUIRED: define images we want to use
 const IMAGES = {
-  starting_system: 'https://i.imgur.com/Zy7NxMW.png',
-  space: 'https://i.imgur.com/hucO1lV.jpg',
-  conquered_space: 'https://i.imgur.com/D70jLSq.png',
-  tier_0: 'https://i.imgur.com/wVHxjH6.png',
-  conquered_tier_0: 'https://i.imgur.com/WGuQ0tJ.png',
-  tier_1: 'https://i.imgur.com/iohY7Me.png',
-  conquered_tier_1: 'https://i.imgur.com/KRexpcl.png',
-  tier_2: 'https://i.imgur.com/Kmy830D.png',
-  conquered_tier_2: 'https://i.imgur.com/GJuyiF9.png',
-  tier_3: 'https://i.imgur.com/rh15kgJ.png',
-  conquered_tier_3: 'https://i.imgur.com/pLIENcw.png',
-  tier_4: 'https://i.imgur.com/UuOQ0mf.png',
-  conquered_tier_4: 'https://i.imgur.com/WaEbcRQ.png'
+  starting_system: 'https://i.imgur.com/57MFhAL.jpg',
+  space: 'https://i.imgur.com/pCJVWNK.jpg',
+  conquered_space: 'https://i.imgur.com/iRuYobi.jpg',
+  tier_0: 'https://i.imgur.com/vPDXcgx.jpg',
+  conquered_tier_0: 'https://i.imgur.com/OCa0rTA.jpg',
+  tier_1: 'https://i.imgur.com/tYnOiEN.jpg',
+  conquered_tier_1: 'https://i.imgur.com/pzAK6of.jpg',
+  tier_2: 'https://i.imgur.com/kOdRPsQ.jpg',
+  conquered_tier_2: 'https://i.imgur.com/d85MkKW.jpg',
+  tier_3: 'https://i.imgur.com/045rm8B.jpg',
+  conquered_tier_3: 'https://i.imgur.com/j6ZtYr7.jpg',
+  tier_4: 'https://i.imgur.com/hbim1EP.jpg',
+  conquered_tier_4: 'https://i.imgur.com/6FyfqR0.jpg'
 };
 
 class emptySpace extends Cell {
@@ -49,19 +49,19 @@ class emptySpace extends Cell {
   onClick() {
     console.log(this.conquerable)
     if (STATE.resources.energy >=5) {
-			if (this.conquerable == true) {
-				this.status += 1;
-				if (this.status >= 1) {
-					STATE.resources.energy = STATE.resources.energy - 5
+		if (this.conquerable == true) {
+			this.status += 1;
+			if (this.status >= 1) {
+				STATE.resources.energy = STATE.resources.energy - 5
 		    	STATE.trigger += 1
 		    	console.log(STATE.trigger)
 		    	var mySpace = new myemptySpace()
 		    	place(mySpace, this.x, this.y)
 		    	showMessage('You have conquered free space. Your troops are free to move.')
 		  	}
-			} else {
+		} else {
 		    showMessage('You must reach this position before conquering it, GOD-QUEEN.')
-			}
+		}
     } else {
     	showMessage('You do not have the energy to move your ships to this position, GOD-QUEEN.')
     }
