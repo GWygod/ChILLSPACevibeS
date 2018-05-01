@@ -655,7 +655,7 @@ function init() {
   var tier2 = new tier_2();
   place(tier2, 40, 28);
   tier2 = new tier_2();
-  place(tier2, 50, 50);
+  place(tier2, 45, 47);
   tier2 = new tier_2();
   place(tier2, 45, 33);
 
