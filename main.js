@@ -634,12 +634,24 @@ function init() {
 
   var tier0 = new tier_0();
   place(tier0, 20, 21);
+  tier0 = new tier_0();
   place(tier0, 30, 31);
+  tier0 = new tier_0 ();
+  place(tier0, 35, 40);
+  tier0 = new tier_0 ();
+  place(tier0, 21, 27);
+  tier0 = new tier_0 ();
+  place(tier0, 30, 23);
+
+
 
   var tier1 = new tier_1();
   place(tier1, 30, 27);
+  tier1 = new tier_1();
+  place(tier1, 35, 22);
 
   var tier2 = new tier_2();
+  place(tier2, 40, 28);
 
   var tier3 = new tier_3();
 
@@ -650,7 +662,7 @@ function init() {
   }, 1000)
 
   defineHarvester('energy', function() {
-  	return (STATE.Ext_system/10)*STATE.energy_production
+  	return (STATE.Ext_system/2)*STATE.energy_production
   }, 1000)
 
   defineHarvester('money', function() {
