@@ -634,6 +634,7 @@ function init() {
 
   var tier0 = new tier_0();
   place(tier0, 20, 21);
+  place(tier0, 30, 31);
 
   var tier1 = new tier_1();
   place(tier1, 30, 27);
