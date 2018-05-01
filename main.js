@@ -649,11 +649,20 @@ function init() {
   place(tier1, 30, 27);
   tier1 = new tier_1();
   place(tier1, 35, 22);
+  tier1 = new tier_1();
+  place(tier1, 40, 49);
 
   var tier2 = new tier_2();
   place(tier2, 40, 28);
+  tier2 = new tier_2();
+  place(tier2, 50, 50);
+  tier2 = new tier_2();
+  place(tier2, 45, 33);
 
   var tier3 = new tier_3();
+  place(tier3, 35, 40);
+  tier3 = new tier_3();
+  place(tier3, 25, 45);
 
   var tier4 = new tier_4();
 
