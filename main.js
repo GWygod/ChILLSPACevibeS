@@ -108,7 +108,7 @@ const STATE = {
     money: 100,
   },
   event: 0,
-  trigger: 1,
+  trigger: 0,
   active: false,
   victory: null,
   Agri_system: 0,
@@ -865,7 +865,7 @@ function main() {
   STATE.resources.army = Math.max(STATE.resources.army, 0)
   STATE.resources.energy = Math.max(STATE.resources.energy, 0)
 
-  if (STATE.trigger % 11 == 0) {
+  if (STATE.trigger > 0 && STATE.trigger % 10 == 0) {
   	STATE.active = true
   }
 
