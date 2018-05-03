@@ -114,7 +114,13 @@ const STATE = {
   Agri_system: 0,
   Ext_system: 0,
   Tax_system: 0,
-  energy_production: 1
+  energy_production: 1,
+  unrest: 0,
+  displeased: false,
+  supplyclock: null,
+  unhappiness: 0,
+  sadness: false,
+  moraleclock: null
 }
 
 function battle(d1,mod1,mod2) {
@@ -742,6 +748,30 @@ function init() {
 
 
 
+  STATE.moraleclock = setInterval(function() {
+  	if (STATE.resources.morale == 0) {
+  		STATE.sadness = true
+		if (STATE.sadness == true) {
+			STATE.unhappiness += 1
+			STATE.sadness = false
+		}
+  	}
+  }, 1000)
+
+  STATE.supplyclock = setInterval(function() {
+  	if (STATE.resources.supplies == 0) {
+  		STATE.displeased = true
+  		if (STATE.displeased == true) {
+  			STATE.unrest += 1
+  			STATE.sadness = false
+  		}
+  	}
+  }, 1000)
+
+  defineHarvester('morale', function() {
+  	return -STATE.unrest/20
+  }, 1000)
+
   defineHarvester('supplies', function() {
   	return STATE.Agri_system/5
   }, 1000)
@@ -752,6 +782,18 @@ function init() {
 
   defineHarvester('money', function() {
   	return STATE.Tax_system/5
+  }, 1000)
+
+  defineHarvester('army', function() {
+  	return STATE.resources.systems/20
+  }, 1000)
+
+  defineHarvester('army', function() {
+  	return -STATE.unhappiness/20
+  }, 1000)
+
+  defineHarvester('supplies', function() {
+  	return -STATE.resources.army/1000
   }, 1000)
 
   let HireMercenaries = new Bonus(
@@ -773,7 +815,7 @@ function init() {
   let BuildEnergyFacility = new Bonus(
   'You have hired the greatest civil engineers to build new energy facilities.',
   'Your energy production will double.',
-  {'energy': 50},
+  {'money': 50},
   () => {
       STATE.energy_production = 2;
   });
@@ -818,6 +860,10 @@ function main() {
 
   STATE.resources.supplies = Math.min(STATE.resources.supplies, 100)
   STATE.resources.morale = Math.min(STATE.resources.morale, 100)
+  STATE.resources.supplies = Math.max(STATE.resources.supplies, 0)
+  STATE.resources.morale = Math.max(STATE.resources.morale, 0)
+  STATE.resources.army = Math.max(STATE.resources.army, 0)
+  STATE.resources.energy = Math.max(STATE.resources.energy, 0)
 
   if (STATE.trigger % 11 == 0) {
   	STATE.active = true
