@@ -777,7 +777,7 @@ function init() {
   }, 1000)
 
   defineHarvester('energy', function() {
-  	return (STATE.Ext_system/2)*STATE.energy_production
+  	return (STATE.Ext_system/5)*STATE.energy_production
   }, 1000)
 
   defineHarvester('money', function() {
