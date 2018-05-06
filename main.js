@@ -14,7 +14,8 @@ const IMAGES = {
   tier_3: 'https://i.imgur.com/045rm8B.jpg',
   conquered_tier_3: 'https://i.imgur.com/j6ZtYr7.jpg',
   tier_4: 'https://i.imgur.com/hbim1EP.jpg',
-  conquered_tier_4: 'https://i.imgur.com/6FyfqR0.jpg'
+  conquered_tier_4: 'https://i.imgur.com/6FyfqR0.jpg',
+  super_massive_blackhole: 'https://i.imgur.com/uw4qPAv.png'
 };
 
 class emptySpace extends Cell {
@@ -22,6 +23,7 @@ class emptySpace extends Cell {
   init() {
     this.status = 0;
     this.conquerable = false;
+    this.absorbable = false
   }
 
   get info() {
@@ -31,6 +33,7 @@ class emptySpace extends Cell {
   get image() {
     return 'space'
   }
+
 
   update(neighbors) {
     var self = this;
@@ -50,6 +53,14 @@ class emptySpace extends Cell {
       	self.conquerable = true
       } else if (neighbor.item instanceof mytier_4) {
       	self.conquerable = true
+      } else if (neighbor.item instanceof super_massive_blackhole) {
+      	self.absorbable = true
+      	if (self.absorbable == true) {
+      		schedule(function() {
+      			var smb = new super_massive_blackhole()
+      			place(smb, self.x, self.y)
+      		}, 5000)
+      	}
       }
     })
   }
@@ -62,16 +73,17 @@ class emptySpace extends Cell {
 			if (this.status >= 1) {
 				STATE.resources.energy = STATE.resources.energy - 5
 		    	STATE.trigger += 1
+		    	STATE.counter += 1
 		    	console.log(STATE.trigger)
 		    	var mySpace = new myemptySpace()
 		    	place(mySpace, this.x, this.y)
-		    	showMessage('You have conquered free space. Your troops are free to move.')
+		    	showMessage('You have conquered free space. Your troops are free to move.', 500)
 		  	}
 		} else {
-		    showMessage('You must reach this position before conquering it, GOD-QUEEN.')
+		    showMessage('You must reach this position before conquering it, GOD-QUEEN.', 500)
 		}
     } else {
-    	showMessage('You do not have the energy to move your ships to this position, GOD-QUEEN.')
+    	showMessage('You do not have the energy to move your ships to this position, GOD-QUEEN.', 500)
     }
   }
 }
@@ -120,7 +132,8 @@ const STATE = {
   supplyclock: null,
   unhappiness: 0,
   sadness: false,
-  moraleclock: null
+  moraleclock: null,
+  counter: 0
 }
 
 function battle(d1,mod1,mod2) {
@@ -149,16 +162,16 @@ class mySystem extends Item {
     return 'starting_system'
   }
 
-  onPlace() {
-    STATE.resources.systems++;
-  }
-
   onDestroy() {
-    STATE.resources.systems--;
+    STATE.resources.systems -= 1;
   }
 }
 
 class myemptySpace extends Item {
+	init() {
+		this.absorbable = false
+	}
+
   get info() {
     return 'This is empty space that is under your protection. Your troops may move through it.'
   }
@@ -166,12 +179,30 @@ class myemptySpace extends Item {
   get image() {
     return 'conquered_space'
   }
+
+  update(neighbors) {
+    var self = this;
+
+    neighbors.forEach(function(neighbor) {
+      if (neighbor.item instanceof super_massive_blackhole) {
+      	self.absorbable = true
+      	if (self.absorbable == true) {
+      		schedule(function() {
+      			self.destroy();
+      			var smb = new super_massive_blackhole()
+      			place(smb, self.x, self.y)
+      		}, 5000)
+      	}
+      }
+    })
+  }
 }
 
 class mytier_0 extends Item {
 
 	init() {
-		this.acquisition = false
+		this.acquisition = false;
+		this.absorbable = false
 	}
 
 	get info() {
@@ -181,6 +212,23 @@ class mytier_0 extends Item {
 	get image() {
 		return 'conquered_tier_0'
 	}
+
+  update(neighbors) {
+    var self = this;
+
+    neighbors.forEach(function(neighbor) {
+      if (neighbor.item instanceof super_massive_blackhole) {
+      	self.absorbable = true
+      	if (self.absorbable == true) {
+      		schedule(function() {
+      			self.destroy();
+      			var smb = new super_massive_blackhole()
+      			place(smb, self.x, self.y)
+      		}, 5000)
+      	}
+      }
+    })
+  }
 
 	onClick() {
 		if (this.acquisition == false) {
@@ -200,6 +248,10 @@ class mytier_0 extends Item {
 			]);
 		}
 	}
+
+	onDestroy() {
+		STATE.resources.systems -= 1
+	}
 }
 
 class tier_0 extends Item {
@@ -209,6 +261,7 @@ class tier_0 extends Item {
     this.supplies = 0;
     this.morale = 0;
     this.conquerable = false;
+    this.absorbable = false
   }
 
 	get info() {
@@ -237,6 +290,15 @@ class tier_0 extends Item {
       	self.conquerable = true
       } else if (neighbor.item instanceof mytier_4) {
       	self.conquerable = true
+      } else if (neighbor.item instanceof super_massive_blackhole) {
+      	self.absorbable = true
+      	if (self.absorbable == true) {
+      		schedule(function() {
+      			self.destroy();
+      			var smb = new super_massive_blackhole()
+      			place(smb, self.x, self.y)
+      		}, 5000)
+      	}
       }
     })
   }
@@ -249,23 +311,25 @@ class tier_0 extends Item {
 					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
 					STATE.resources.army = STATE.resources.army + (army_mod * 20)
 					STATE.trigger += 1
+					STATE.counter += 1
 					STATE.resources.systems += 1
 					console.log(STATE.trigger)
 					var my0 = new mytier_0()
 					place(my0, this.x, this.y)
-					showMessage('You have conquered this system. Glory be to the GOD-QUEEN!')
+					showMessage('You have conquered this system. Glory be to the GOD-QUEEN!', 500)
 				} else if (STATE.victory == false) {
 					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
 					STATE.resources.army = STATE.resources.army - (army_mod * 20)
 					STATE.trigger += 1
+					STATE.counter += 1
 					console.log(STATE.trigger)
-					showMessage('Your army has failed to conquer this system. They will be taught a lesson, GOD-QUEEN.')
+					showMessage('Your army has failed to conquer this system.', 500)
 				}
 			} else {
-				showMessage('You must reach this system before conquering it.')
+				showMessage('You must reach this system before conquering it.', 500)
 			}
 		} else {
-    	showMessage('You do not have the energy to move your ships to conquer this system, GOD-QUEEN.')
+    	showMessage('You do not have the energy to move your ships to conquer this system, GOD-QUEEN.', 500)
     }
 	}
 }
@@ -273,7 +337,8 @@ class tier_0 extends Item {
 class mytier_1 extends Item {
 
 	init() {
-		this.acquisition = false
+		this.acquisition = false;
+		this.absorbable = false
 	}
 
 	get info() {
@@ -282,6 +347,23 @@ class mytier_1 extends Item {
 
 	get image() {
 		return 'conquered_tier_1'
+	}
+
+	update(neighbors) {
+		var self = this
+
+		neighbors.forEach(function(neighbor) {
+			if (neighbor.item instanceof super_massive_blackhole) {
+				self.absorbable = true
+		      	if (self.absorbable == true) {
+		      		schedule(function() {
+		      			self.destroy();
+		      			var smb = new super_massive_blackhole()
+		      			place(smb, self.x, self.y)
+		      		}, 5000)
+		      	}
+			}
+		})
 	}
 
 	onClick() {
@@ -302,6 +384,10 @@ class mytier_1 extends Item {
 			]);
 		}
 	}
+
+	onDestroy() {
+		STATE.resources.systems -= 1
+	}
 }
 
 class tier_1 extends Item {
@@ -311,6 +397,7 @@ class tier_1 extends Item {
     this.supplies = 30;
     this.morale = 50;
     this.conquerable = false;
+    this.absorbable = false
   }
 
 	get info() {
@@ -339,6 +426,15 @@ class tier_1 extends Item {
       	self.conquerable = true
       } else if (neighbor.item instanceof mytier_4) {
       	self.conquerable = true
+      } else if (neighbor.item instanceof super_massive_blackhole) {
+      	self.absorbable = true
+      	if (self.absorbable == true) {
+      		schedule(function() {
+      			self.destroy();
+      			var smb = new super_massive_blackhole()
+      			place(smb, self.x, self.y)
+      		}, 5000)
+      	}
       }
     })
   }
@@ -351,23 +447,25 @@ class tier_1 extends Item {
 					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
 					STATE.resources.army = STATE.resources.army + (army_mod * 20)
 					STATE.trigger += 1
+					STATE.counter += 1
 					STATE.resources.systems += 1
 					console.log(STATE.trigger)
 					var my1 = new mytier_1()
 					place(my1, this.x, this.y)
-					showMessage('You have conquered this system. Glory be to the GOD-QUEEN!')
+					showMessage('You have conquered this system. Glory be to the GOD-QUEEN!', 500)
 				} else if (STATE.victory == false) {
 					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
 					STATE.resources.army = STATE.resources.army - (army_mod * 20)
 					STATE.trigger += 1
+					STATE.counter += 1
 					console.log(STATE.trigger)
-					showMessage('Your army has failed to conquer this system. They will be taught a lesson, GOD-QUEEN.')
+					showMessage('Your army has failed to conquer this system.', 500)
 				}
 			} else {
-				showMessage('You must reach this system before conquering it.')
+				showMessage('You must reach this system before conquering it.', 500)
 			}
 		} else {
-    	showMessage('You do not have the energy to move your ships to conquer this system, GOD-QUEEN.')
+    	showMessage('You do not have the energy to move your ships to conquer this system, GOD-QUEEN.', 500)
     }
 	}
 }
@@ -375,7 +473,8 @@ class tier_1 extends Item {
 class mytier_2 extends Item {
 
 	init() {
-		this.acquisition = false
+		this.acquisition = false;
+		this.absorbable = false
 	}
 
 	get info() {
@@ -384,6 +483,23 @@ class mytier_2 extends Item {
 
 	get image() {
 		return 'conquered_tier_2'
+	}
+
+	update(neighbors) {
+		var self = this
+
+		neighbors.forEach(function(neighbor) {
+			if (neighbor.item instanceof super_massive_blackhole) {
+				self.absorbable = true
+		      	if (self.absorbable == true) {
+		      		schedule(function() {
+		      			self.destroy();
+		      			var smb = new super_massive_blackhole()
+		      			place(smb, self.x, self.y)
+		      		}, 5000)
+		      	}
+			}
+		})
 	}
 
 	onClick() {
@@ -404,6 +520,10 @@ class mytier_2 extends Item {
 			]);
 		}
 	}
+
+	onDestroy() {
+		STATE.resources.systems -= 1
+	}
 }
 
 class tier_2 extends Item {
@@ -413,6 +533,7 @@ class tier_2 extends Item {
     this.supplies = 50;
     this.morale = 60;
     this.conquerable = false;
+    this.absorbable = false
   }
 
 	get info() {
@@ -441,6 +562,15 @@ class tier_2 extends Item {
       	self.conquerable = true
       } else if (neighbor.item instanceof mytier_4) {
       	self.conquerable = true
+      } else if (neighbor.item instanceof super_massive_blackhole) {
+      	self.absorbable = true
+      	if (self.absorbable == true) {
+      		schedule(function() {
+      			self.destroy();
+      			var smb = new super_massive_blackhole()
+      			place(smb, self.x, self.y)
+      		}, 5000)
+      	}
       }
     })
   }
@@ -453,23 +583,25 @@ class tier_2 extends Item {
 					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
 					STATE.resources.army = STATE.resources.army + (army_mod * 20)
 					STATE.trigger += 1
+					STATE.counter += 1
 					STATE.resources.systems += 1
 					console.log(STATE.trigger)
 					var my2 = new mytier_2()
 					place(my2, this.x, this.y)
-					showMessage('You have conquered this system. Glory be to the GOD-QUEEN!')
+					showMessage('You have conquered this system. Glory be to the GOD-QUEEN!', 500)
 				} else if (STATE.victory == false) {
 					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
 					STATE.resources.army = STATE.resources.army - (army_mod * 20)
 					STATE.trigger += 1
+					STATE.counter += 1
 					console.log(STATE.trigger)
-					showMessage('Your army has failed to conquer this system. They will be taught a lesson, GOD-QUEEN.')
+					showMessage('Your army has failed to conquer this system.', 500)
 				}
 			} else {
-				showMessage('You must reach this system before conquering it.')
+				showMessage('You must reach this system before conquering it.', 500)
 			}
 		} else {
-    	showMessage('You do not have the energy to move your ships to conquer this system, GOD-QUEEN.')
+    	showMessage('You do not have the energy to move your ships to conquer this system, GOD-QUEEN.', 500)
     }
 	}
 }
@@ -477,7 +609,8 @@ class tier_2 extends Item {
 class mytier_3 extends Item {
 
 	init() {
-		this.acquisition = false
+		this.acquisition = false;
+		this.absorbable = false
 	}
 
 	get info() {
@@ -486,6 +619,23 @@ class mytier_3 extends Item {
 
 	get image() {
 		return 'conquered_tier_3'
+	}
+
+	update(neighbors) {
+		var self = this
+
+		neighbors.forEach(function(neighbor) {
+			if (neighbor.item instanceof super_massive_blackhole) {
+				self.absorbable = true
+		      	if (self.absorbable == true) {
+		      		schedule(function() {
+		      			self.destroy();
+		      			var smb = new super_massive_blackhole()
+		      			place(smb, self.x, self.y)
+		      		}, 5000)
+		      	}
+			}
+		})
 	}
 
 	onClick() {
@@ -506,6 +656,10 @@ class mytier_3 extends Item {
 			]);
 		}
 	}
+
+	onDestroy() {
+		STATE.resources.systems -= 1
+	}
 }
 
 class tier_3 extends Item {
@@ -515,6 +669,7 @@ class tier_3 extends Item {
     this.supplies = 70;
     this.morale = 70;
     this.conquerable = false;
+    this.absorbable = false
   }
 
 	get info() {
@@ -543,6 +698,15 @@ class tier_3 extends Item {
       	self.conquerable = true
       } else if (neighbor.item instanceof mytier_4) {
       	self.conquerable = true
+      } else if (neighbor.item instanceof super_massive_blackhole) {
+      	self.absorbable = true
+      	if (self.absorbable == true) {
+      		schedule(function() {
+      			self.destroy();
+      			var smb = new super_massive_blackhole()
+      			place(smb, self.x, self.y)
+      		}, 5000)
+      	}
       }
     })
   }
@@ -555,23 +719,25 @@ class tier_3 extends Item {
 					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
 					STATE.resources.army = STATE.resources.army + (army_mod * 20)
 					STATE.trigger += 1
+					STATE.counter += 1
 					STATE.resources.systems += 1
 					console.log(STATE.trigger)
 					var my3 = new mytier_3()
 					place(my3, this.x, this.y)
-					showMessage('You have conquered this system. Glory be to the GOD-QUEEN!')
+					showMessage('You have conquered this system. Glory be to the GOD-QUEEN!', 500)
 				} else if (STATE.victory == false) {
 					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
 					STATE.resources.army = STATE.resources.army - (army_mod * 20)
 					STATE.trigger += 1
+					STATE.counter += 1
 					console.log(STATE.trigger)
-					showMessage('Your army has failed to conquer this system. They will be taught a lesson, GOD-QUEEN.')
+					showMessage('Your army has failed to conquer this system.', 500)
 				}
 			} else {
-				showMessage('You must reach this system before conquering it.')
+				showMessage('You must reach this system before conquering it.', 500)
 			}
 		} else {
-    	showMessage('You do not have the energy to move your ships to conquer this system, GOD-QUEEN.')
+    	showMessage('You do not have the energy to move your ships to conquer this system, GOD-QUEEN.', 500)
     }
 	}
 }
@@ -579,7 +745,8 @@ class tier_3 extends Item {
 class mytier_4 extends Item {
 
 	init() {
-		this.acquisition = false
+		this.acquisition = false;
+		this.absorbable = false
 	}
 
 	get info() {
@@ -588,6 +755,23 @@ class mytier_4 extends Item {
 
 	get image() {
 		return 'conquered_tier_4'
+	}
+
+	update(neighbors) {
+		var self = this
+
+		neighbors.forEach(function(neighbor) {
+			if (neighbor.item instanceof super_massive_blackhole) {
+				self.absorbable = true
+		      	if (self.absorbable == true) {
+		      		schedule(function() {
+		      			self.destroy();
+		      			var smb = new super_massive_blackhole()
+		      			place(smb, self.x, self.y)
+		      		}, 5000)
+		      	}
+			}
+		})
 	}
 
 	onClick() {
@@ -608,16 +792,20 @@ class mytier_4 extends Item {
 			]);
 		}
 	}
+
+	onDestroy() {
+		STATE.resources.systems -= 1
+	}
 }
 
 class tier_4 extends Item {
-
 	init() {
-    this.army = 200;
-    this.supplies = 90;
-    this.morale = 80;
-    this.conquerable = false;
-  }
+		this.army = 200;
+		this.supplies = 90;
+		this.morale = 80;
+		this.conquerable = false;
+		this.absorbable = false;
+	}
 
 	get info() {
 		return 'This is an unprotected system.'
@@ -645,6 +833,15 @@ class tier_4 extends Item {
       	self.conquerable = true
       } else if (neighbor.item instanceof mytier_4) {
       	self.conquerable = true
+      } else if (neighbor.item instanceof super_massive_blackhole) {
+      	self.absorbable = true
+      	if (self.absorbable == true) {
+      		schedule(function() {
+      			self.destroy();
+      			var smb = new super_massive_blackhole()
+      			place(smb, self.x, self.y)
+      		}, 5000)
+      	}
       }
     })
   }
@@ -661,20 +858,34 @@ class tier_4 extends Item {
 					console.log(STATE.trigger)
 					var my4 = new mytier_4()
 					place(my4, this.x, this.y)
-					showMessage('You have conquered this system. Glory be to the GOD-QUEEN!')
+					showMessage('You have conquered this system. Glory be to the GOD-QUEEN!', 500)
 				} else if (STATE.victory == false) {
 					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
 					STATE.resources.army = STATE.resources.army - (army_mod * 20)
 					STATE.trigger += 1
 					console.log(STATE.trigger)
-					showMessage('Your army has failed to conquer this system. They will be taught a lesson, GOD-QUEEN.')
+					showMessage('Your army has failed to conquer this system.', 500)
 				}
 			} else {
-				showMessage('You must reach this system before conquering it.')
+				showMessage('You must reach this system before conquering it.', 500)
 			}
 		} else {
-    	showMessage('You do not have the energy to move your ships to conquer this system, GOD-QUEEN.')
-    }
+    	showMessage('You do not have the energy to move your ships to conquer this system, GOD-QUEEN.', 500)
+    	}
+	}
+}
+
+class super_massive_blackhole extends Item {
+	init() {
+		
+	}
+
+	get info() {
+		return 'We must flee from this blackhole!'
+	}
+
+	get image() {
+		return 'super_massive_blackhole'
 	}
 }
 
@@ -864,6 +1075,22 @@ function main() {
   STATE.resources.morale = Math.max(STATE.resources.morale, 0)
   STATE.resources.army = Math.max(STATE.resources.army, 0)
   STATE.resources.energy = Math.max(STATE.resources.energy, 0)
+
+  if (STATE.counter == 75) {
+  	//destroy(24, 24)
+  	var smb = new super_massive_blackhole()
+  	place(smb, 24, 24)
+  	let the_end = new Event('OUR STAR HAS COLLAPSED', 'Our home star has collapsed into a blackhole. It is consuming everything!')
+  	STATE.counter++
+  }
+
+  if (STATE.resources.morale > 0) {
+  	STATE.unhappiness = 0
+  }
+
+  if (STATE.resources.supplies > 0) {
+  	STATE.unrest = 0
+  }
 
   if (STATE.trigger > 0 && STATE.trigger % 10 == 0) {
   	STATE.active = true
