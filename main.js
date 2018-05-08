@@ -934,11 +934,10 @@ function init() {
   tier2 = new tier_2();
   place(tier2, 39, 13);
   tier2 = new tier_2();
-<<<<<<< HEAD
   place(tier2, 40, 30);
-=======
+  tier2 = new tier_2();
   place(tier2, 27, 29);
->>>>>>> 75c5e112df301bb25db378bcce18c069ef607a89
+
 
 
   var tier3 = new tier_3();
