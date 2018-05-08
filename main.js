@@ -591,7 +591,7 @@ class tier_2 extends Item {
 					showMessage('You have conquered this system. Glory be to the GOD-QUEEN!', 500)
 				} else if (STATE.victory == false) {
 					STATE.resources.energy = STATE.resources.energy - (5 * (STATE.resources.army/20))
-					STATE.resources.army = STATE.resources.army - (army_mod * 20)
+					STATE.resources.army = STATE.resources.army - (army_mod * 30)
 					STATE.trigger += 1
 					STATE.counter += 1
 					console.log(STATE.trigger)
@@ -665,7 +665,7 @@ class mytier_3 extends Item {
 class tier_3 extends Item {
 
 	init() {
-    this.army = 150;
+    this.army = 300;
     this.supplies = 70;
     this.morale = 70;
     this.conquerable = false;
