@@ -907,6 +907,8 @@ function init() {
   place(tier0, 21, 27);
   tier0 = new tier_0 ();
   place(tier0, 30, 23);
+  tier0 = new tier_0 ();
+  place(tier0, 10, 10);
 
 
 
@@ -918,6 +920,9 @@ function init() {
   place(tier1, 40, 49);
   tier1 = new tier_1();
   place(tier1, 10, 19);
+  tier1 = new tier_1();
+  place(tier1, 20, 15);
+
 
 
   var tier2 = new tier_2();
@@ -928,6 +933,8 @@ function init() {
   place(tier2, 45, 33);
   tier2 = new tier_2();
   place(tier2, 39, 13);
+  tier2 = new tier_2();
+  place(tier2, 40, 30);
 
 
   var tier3 = new tier_3();
