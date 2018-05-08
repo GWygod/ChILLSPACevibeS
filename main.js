@@ -922,6 +922,10 @@ function init() {
   place(tier1, 10, 19);
   tier1 = new tier_1();
   place(tier1, 20, 15);
+  tier1 = new tier_1();
+  place(tier1, 17, 24);
+  tier1 = new tier_1();
+  place(tier1, 13, 40);
 
 
 
@@ -937,6 +941,10 @@ function init() {
   place(tier2, 40, 30);
   tier2 = new tier_2();
   place(tier2, 27, 29);
+  tier2 = new tier_2();
+  place(tier2, 21, 40);
+  tier2 = new tier_2();
+  place(tier2, 2, 34);
 
 
 
@@ -954,6 +962,10 @@ function init() {
   place(tier3, 48, 10);
   tier3 = new tier_3();
   place(tier3, 40,13)
+  tier3 = new tier_3();
+  place(tier3, 8,28)
+  tier3 = new tier_3();
+  place(tier3, 17,32)
 
 
   var tier4 = new tier_4();
@@ -968,6 +980,10 @@ function init() {
   place(tier4, 30, 22);
   tier4 = new tier_4();
   place(tier4, 24, 33);
+  tier4 = new tier_4();
+  place(tier4, 10, 36);
+  tier4 = new tier_4();
+  place(tier4, 5, 48);
 
 
 
