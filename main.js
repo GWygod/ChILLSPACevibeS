@@ -877,7 +877,7 @@ class tier_4 extends Item {
 
 class super_massive_blackhole extends Item {
 	init() {
-		
+
 	}
 
 	get info() {
@@ -934,7 +934,11 @@ function init() {
   tier2 = new tier_2();
   place(tier2, 39, 13);
   tier2 = new tier_2();
+<<<<<<< HEAD
   place(tier2, 40, 30);
+=======
+  place(tier2, 27, 29);
+>>>>>>> 75c5e112df301bb25db378bcce18c069ef607a89
 
 
   var tier3 = new tier_3();
@@ -949,6 +953,8 @@ function init() {
   place(tier3, 27, 20);
   tier3 = new tier_3();
   place(tier3, 48, 10);
+  tier3 = new tier_3();
+  place(tier3, 40,13)
 
 
   var tier4 = new tier_4();
